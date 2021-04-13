@@ -1,17 +1,18 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "r4nkt/laravel-saasparilla",
+    "description": "todo",
     "keywords": [
-        ":vendor_name",
+        "r4nkt",
         "laravel",
-        "package_slug"
+        "saas"
+        "saasparilla"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/r4nkt/laravel-saasparilla",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Travis Elkins",
+            "email": "travis.elkins+github@gmail.com",
             "role": "Developer"
         }
     ],
@@ -30,13 +31,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "R4nkt\\Saasparilla\\": "src",
+            "R4nkt\\Saasparilla\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "R4nkt\\Saasparilla\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -50,10 +51,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "R4nkt\\Saasparilla\\SaasparillaServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\SkeletonFacade"
+                "Saasparilla": "R4nkt\\Saasparilla\\SaasparillaFacade"
             }
         }
     },
