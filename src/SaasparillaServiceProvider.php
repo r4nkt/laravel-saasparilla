@@ -2,9 +2,9 @@
 
 namespace R4nkt\Saasparilla;
 
+use R4nkt\Saasparilla\Commands\SaasparillaCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use R4nkt\Saasparilla\Commands\SaasparillaCommand;
 
 class SaasparillaServiceProvider extends PackageServiceProvider
 {
