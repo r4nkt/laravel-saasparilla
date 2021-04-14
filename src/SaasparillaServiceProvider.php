@@ -18,8 +18,9 @@ class SaasparillaServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-saasparilla')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel_saasparilla_table')
-            ->hasCommand(SaasparillaCommand::class);
+            // ->hasViews()
+            // ->hasMigration('create_laravel_saasparilla_table')
+            // ->hasCommand(SaasparillaCommand::class)
+            ;
     }
 }

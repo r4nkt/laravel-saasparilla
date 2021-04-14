@@ -13,7 +13,7 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Spatie\\Saasparilla\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'R4nkt\\Saasparilla\\Tests\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
@@ -33,9 +33,8 @@ class TestCase extends Orchestra
             'prefix' => '',
         ]);
 
-        /*
-        include_once __DIR__.'/../database/migrations/create_laravel_saasparilla_table.php.stub';
-        (new \CreatePackageTable())->up();
-        */
+        include_once __DIR__.'/Database/Migrations/2014_10_12_000000_create_users_table.php';
+        (new \CreateUsersTable())->up();
+
     }
 }
