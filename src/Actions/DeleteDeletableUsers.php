@@ -2,7 +2,6 @@
 
 namespace R4nkt\Saasparilla\Actions;
 
-use R4nkt\Saasparilla\Actions\Concerns;
 use R4nkt\Saasparilla\Actions\Contracts\DeletesDeletableResources;
 
 class DeleteDeletableUsers implements DeletesDeletableResources

@@ -2,7 +2,6 @@
 
 namespace R4nkt\Saasparilla\Tests\Actions\Users;
 
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use R4nkt\Saasparilla\Contexts\Context;
 use R4nkt\Saasparilla\Mail\UserInactivityMail;
