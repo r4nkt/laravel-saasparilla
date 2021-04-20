@@ -6,10 +6,13 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use R4nkt\Saasparilla\Models\Concerns\CanBeMarkedForDeletion;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use CanBeMarkedForDeletion;
+    use HasFactory;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.

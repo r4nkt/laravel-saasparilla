@@ -1,16 +1,16 @@
 <?php
 
-namespace R4nkt\Saasparilla;
+namespace R4nkt\Saasparilla\Support\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \R4nkt\Saasparilla\Saasparilla
  */
-class SaasparillaFacade extends Facade
+class Saasparilla extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'laravel-saasparilla';
+        return 'saasparilla';
     }
 }

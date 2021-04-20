@@ -18,9 +18,16 @@ class SaasparillaServiceProvider extends PackageServiceProvider
         $package
             ->name('laravel-saasparilla')
             ->hasConfigFile()
-            // ->hasViews()
-            // ->hasMigration('create_laravel_saasparilla_table')
+            ->hasViews()
+            ->hasMigrations(['add_deletion_marker_columns_to_users_table'])
             // ->hasCommand(SaasparillaCommand::class)
             ;
+    }
+
+    public function registeringPackage()
+    {
+        $this->app->bind('saasparilla', function($app) {
+            return new Saasparilla();
+        });
     }
 }

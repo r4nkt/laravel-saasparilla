@@ -35,6 +35,7 @@ class TestCase extends Orchestra
 
         include_once __DIR__.'/Database/Migrations/2014_10_12_000000_create_users_table.php';
         (new \CreateUsersTable())->up();
-
+        include_once __DIR__.'/../database/migrations/add_deletion_marker_columns_to_users_table.php.stub';
+        (new \AddDeletionMarkerColumnsToUsersTable())->up();
     }
 }
