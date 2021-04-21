@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\URL;
 
 class UnverifiedUserMarkedForDeletionMail extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public $user;
 

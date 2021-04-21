@@ -2,8 +2,6 @@
 
 namespace R4nkt\Saasparilla;
 
-use Illuminate\Support\Arr;
-
 class Features
 {
     /**

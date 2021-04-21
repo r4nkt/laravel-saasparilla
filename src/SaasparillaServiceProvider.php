@@ -26,7 +26,7 @@ class SaasparillaServiceProvider extends PackageServiceProvider
 
     public function registeringPackage()
     {
-        $this->app->bind('saasparilla', function($app) {
+        $this->app->bind('saasparilla', function ($app) {
             return new Saasparilla();
         });
     }
