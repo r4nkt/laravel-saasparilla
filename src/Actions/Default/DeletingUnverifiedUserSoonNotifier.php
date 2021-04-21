@@ -16,7 +16,7 @@ class DeletingUnverifiedUserSoonNotifier implements NotifiesUser
         $emailAttribute = $this->param('email_attribute', 'email');
 
         if (! $mailable = $this->param('mailable')) {
-            InvalidConfiguration::missingMailableForUserNotification();
+            InvalidConfiguration::missingRequiredParam('mailable');
         }
 
         Mail::to($user->{$emailAttribute})->queue(new $mailable($user));

@@ -19,9 +19,6 @@ class UnverifiedUserMarkedForDeletionMail extends Mailable
 
     /**
      * Create a new message instance.
-     *
-     * @param  \Illuminate\Foundation\Auth  $user
-     * @return void
      */
     public function __construct(User $user)
     {

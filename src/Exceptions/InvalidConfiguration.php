@@ -6,6 +6,11 @@ use Exception;
 
 class InvalidConfiguration extends Exception
 {
+    public static function missingDeleter(string $name)
+    {
+        throw new self("Deleter with name, {$name}, was not found.");
+    }
+
     public static function missingGetter(string $name)
     {
         throw new self("Getter with name, {$name}, was not found.");
