@@ -5,7 +5,6 @@ namespace R4nkt\Saasparilla\Tests\Actions\Default;
 use Carbon\Carbon;
 use R4nkt\Saasparilla\Actions\Contracts\GetsResources;
 use R4nkt\Saasparilla\GetterFactory;
-use R4nkt\Saasparilla\Saasparilla;
 use R4nkt\Saasparilla\Tests\TestCase;
 use R4nkt\Saasparilla\Tests\TestClasses\User;
 
