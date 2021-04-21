@@ -2,9 +2,9 @@
 
 namespace R4nkt\Saasparilla\Actions\Contracts;
 
-interface SavesDeletableResource
+interface DeletesResourcesMarkedForDeletion
 {
     public function setParams(array $params = []);
 
-    public function save($resource): void;
+    public function execute(): int;
 }

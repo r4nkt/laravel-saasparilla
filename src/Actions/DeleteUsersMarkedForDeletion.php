@@ -2,9 +2,9 @@
 
 namespace R4nkt\Saasparilla\Actions;
 
-use R4nkt\Saasparilla\Actions\Contracts\DeletesDeletableResources;
+use R4nkt\Saasparilla\Actions\Contracts\DeletesResourcesMarkedForDeletion;
 
-class DeleteDeletableUsers implements DeletesDeletableResources
+class DeleteUsersMarkedForDeletion implements DeletesResourcesMarkedForDeletion
 {
     use Concerns\HasDeleter;
     use Concerns\HasGetter;

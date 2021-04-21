@@ -7,7 +7,7 @@ use Illuminate\Support\Enumerable;
 use R4nkt\Saasparilla\Actions\Concerns\HasParams;
 use R4nkt\Saasparilla\Actions\Contracts\GetsResources;
 
-class GetDeletableUsers implements GetsResources
+class GetUsersMarkedForDeletion implements GetsResources
 {
     use HasParams;
 

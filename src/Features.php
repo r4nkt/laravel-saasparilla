@@ -70,13 +70,13 @@ class Features
     }
 
     /**
-     * Determine if the feature that allows deleting unverified users is enabled.
+     * Determine if the feature that allows deleting users marked for deletion is enabled.
      *
      * @return bool
      */
-    public static function hasDeletesUnverifiedUsersFeature()
+    public static function hasDeletesUsersMarkedForDeletionFeature()
     {
-        return static::enabled(static::deletesUnverifiedUsers());
+        return static::enabled(static::deletesUsersMarkedForDeletion());
     }
 
     /**
@@ -94,16 +94,16 @@ class Features
     }
 
     /**
-     * Enable the feature that allows deleting unverified users.
+     * Enable the feature that allows deleting users marked for deletion.
      *
      * @return string
      */
-    public static function deletesUnverifiedUsers(array $options = [])
+    public static function deletesUsersMarkedForDeletion(array $options = [])
     {
         if (! empty($options)) {
-            config(['saasparilla-options.deletes-unverified-users' => $options]);
+            config(['saasparilla-options.deletes-users-marked-for-deletion' => $options]);
         }
 
-        return 'deletes-unverified-users';
+        return 'deletes-users-marked-for-deletion';
     }
 }

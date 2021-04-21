@@ -23,7 +23,7 @@ class MarkUsersForDeletion implements MarksResourcesForDeletion
             ->each(function ($user) use (&$markedForDeletionCount, $marker, $notifier) {
                 $marker->mark($user);
 
-                optional($notifier)->notify($user);
+                $notifier->notify($user);
 
                 $markedForDeletionCount++;
             });

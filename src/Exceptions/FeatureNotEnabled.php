@@ -16,8 +16,8 @@ class FeatureNotEnabled extends Exception
         self::featureNotEnabled('MarksUnverifiedUsersForDeletion');
     }
 
-    public static function deletesUnverifiedUsers()
+    public static function deletesUsersMarkedForDeletion()
     {
-        self::featureNotEnabled('DeletesUnverifiedUsers');
+        self::featureNotEnabled('DeletesUsersMarkedForDeletion');
     }
 }

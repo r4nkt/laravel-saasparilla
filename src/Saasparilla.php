@@ -16,13 +16,13 @@ class Saasparilla
         return $this->buildAction(Features::marksUnverifiedUsersForDeletion());
     }
 
-    public function deleteUnverifiedUsers(): ?int
+    public function deleteUsersMarkedForDeletion(): ?int
     {
-        if (! Features::hasDeletesUnverifiedUsersFeature()) {
-            FeatureNotEnabled::deletesUnverifiedUsersFeature();
+        if (! Features::hasDeletesUsersMarkedForDeletionFeature()) {
+            FeatureNotEnabled::deletesUsersMarkedForDeletionFeature();
         }
 
-        return $this->buildAction(Features::deletesUnverifiedUsers());
+        return $this->buildAction(Features::deletesUsersMarkedForDeletion());
     }
 
     protected function buildAction(string $feature)

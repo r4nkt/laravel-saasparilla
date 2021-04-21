@@ -3,10 +3,10 @@
 use Illuminate\Foundation\Auth\User;
 use R4nkt\Saasparilla\Actions\Default\DeleteUser;
 use R4nkt\Saasparilla\Actions\Default\DeletingUnverifiedUserSoonNotifier;
-use R4nkt\Saasparilla\Actions\Default\GetDeletableUsers;
+use R4nkt\Saasparilla\Actions\Default\GetUsersMarkedForDeletion;
 use R4nkt\Saasparilla\Actions\Default\GetUnverifiedUsers;
 use R4nkt\Saasparilla\Actions\Default\MarkUserForDeletion;
-use R4nkt\Saasparilla\Actions\DeleteDeletableUsers;
+use R4nkt\Saasparilla\Actions\DeleteUsersMarkedForDeletion;
 use R4nkt\Saasparilla\Actions\MarkUsersForDeletion;
 use R4nkt\Saasparilla\Features;
 use R4nkt\Saasparilla\Mail\UnverifiedUserMarkedForDeletionMail;
@@ -42,13 +42,13 @@ return [
             'class' => MarkUsersForDeletion::class,
             'params' => [
                 'getter' => 'unverified-users',
-                'marker' => 'unverified-user-for-deletion',
+                'marker' => 'user-for-deletion',
                 'notifier' => 'deleting-unverified-user-soon',
             ],
         ]),
 
         /**
-         * Finds deletes unverified users that have been marked for deletion.
+         * Deletes users that have been marked for deletion.
          *
          * Required:
          *  - class
@@ -56,10 +56,10 @@ return [
          *     - getter
          *     - deleter
          */
-        Features::deletesUnverifiedUsers([
-            'class' => DeleteDeletableUsers::class,
+        Features::deletesUsersMarkedForDeletion([
+            'class' => DeleteUsersMarkedForDeletion::class,
             'params' => [
-                'getter' => 'deletable-users',
+                'getter' => 'users-marked-for-deletion',
                 'deleter' => 'users',
             ],
         ]),
@@ -79,8 +79,8 @@ return [
                 'threshold' => 14,
             ],
         ],
-        'deletable-users' => [
-            'class' => GetDeletableUsers::class,
+        'users-marked-for-deletion' => [
+            'class' => GetUsersMarkedForDeletion::class,
             'params' => [
                 'model' => User::class,
             ],
@@ -88,7 +88,7 @@ return [
     ],
 
     'markers' => [
-        'unverified-user-for-deletion' => [
+        'user-for-deletion' => [
             'class' => MarkUserForDeletion::class,
             'params' => [
                 'grace' => 30,

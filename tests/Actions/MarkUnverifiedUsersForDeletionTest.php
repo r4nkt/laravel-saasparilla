@@ -34,7 +34,7 @@ class MarkUnverifiedUsersForDeletionTest extends TestCase
 
         // Get default configuration settings for threshold and grace
         $threshold = self::getter('unverified-users')['params']['threshold'];
-        $grace = self::marker('unverified-user-for-deletion')['params']['grace'];
+        $grace = self::marker('user-for-deletion')['params']['grace'];
 
         // After `threshold` days, confirm the unverified user is still "OK"
         $this->travel($threshold)->days();
@@ -59,13 +59,13 @@ class MarkUnverifiedUsersForDeletionTest extends TestCase
 
         // After `grace` days, confirm already-marked-for-deletion user won't be deleted
         $this->travel($grace)->days();
-        $count = Saasparilla::deleteUnverifiedUsers();
+        $count = Saasparilla::deleteUsersMarkedForDeletion();
         $this->assertSame(0, $count);
         $this->assertTrue($unverifiedUser->exists());
 
         // After one more second (exceeding `grace`), confirm already-marked-for-deletion user will be deleted
         $this->travel(1)->seconds();
-        $count = Saasparilla::deleteUnverifiedUsers();
+        $count = Saasparilla::deleteUsersMarkedForDeletion();
         $this->assertSame(1, $count);
         $this->assertFalse($unverifiedUser->exists());
     }
