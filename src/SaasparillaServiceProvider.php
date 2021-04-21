@@ -3,7 +3,6 @@
 namespace R4nkt\Saasparilla;
 
 use R4nkt\Saasparilla\Commands\DeleteUsersMarkedForDeletion;
-use R4nkt\Saasparilla\Commands\SaasparillaCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
