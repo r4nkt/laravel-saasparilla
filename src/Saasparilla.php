@@ -19,7 +19,7 @@ class Saasparilla
     public function deleteUsersMarkedForDeletion(): ?int
     {
         if (! Features::hasDeletesUsersMarkedForDeletionFeature()) {
-            FeatureNotEnabled::deletesUsersMarkedForDeletionFeature();
+            FeatureNotEnabled::deletesUsersMarkedForDeletion();
         }
 
         return $this->buildAction(Features::deletesUsersMarkedForDeletion());
