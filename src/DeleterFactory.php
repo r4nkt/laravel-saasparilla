@@ -16,6 +16,8 @@ class DeleterFactory
             InvalidConfiguration::missingDeleter($name);
         }
 
+        // $class = $config['class'];
+
         return (new $config['class'])
             ->setParams($config['params'] ?? []);
     }

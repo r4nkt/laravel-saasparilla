@@ -9,7 +9,7 @@ class UnmarkUserMarkedForDeletion implements UnmarksResourceMarkedForDeletion
 {
     use HasParams;
 
-    public function unmark($resource): void
+    public function unmark(mixed $resource): void
     {
         $resource->deleting_soon_mail_sent_at = null;
         $resource->automatically_delete_at = null;

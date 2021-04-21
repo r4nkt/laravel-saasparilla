@@ -11,7 +11,7 @@ class DeletingUnverifiedUserSoonNotifier implements NotifiesUser
 {
     use HasParams;
 
-    public function notify($user): void
+    public function notify(mixed $user): void
     {
         $emailAttribute = $this->param('email_attribute', 'email');
 

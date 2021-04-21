@@ -25,7 +25,7 @@ class Saasparilla
         return $this->buildAction(Features::deletesUsersMarkedForDeletion());
     }
 
-    protected function buildAction(string $feature)
+    protected function buildAction(string $feature): mixed
     {
         $options = Features::options($feature);
 

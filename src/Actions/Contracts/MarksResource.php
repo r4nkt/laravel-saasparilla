@@ -4,7 +4,7 @@ namespace R4nkt\Saasparilla\Actions\Contracts;
 
 interface MarksResource
 {
-    public function setParams(array $params = []);
+    public function setParams(array $params = []): mixed;
 
-    public function mark($resource): void;
+    public function mark(mixed $resource): void;
 }

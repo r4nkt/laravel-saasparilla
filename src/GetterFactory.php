@@ -16,7 +16,9 @@ class GetterFactory
             InvalidConfiguration::missingGetter($name);
         }
 
-        return (new $config['class'])
+        $class = $config['class'];
+
+        return (new $class)
             ->setParams($config['params'] ?? []);
     }
 }

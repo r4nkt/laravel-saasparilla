@@ -9,6 +9,8 @@ class DeleteUsersMarkedForDeletion extends Command
 {
     protected $signature = 'saasparilla:delete-users-marked-for-deletion';
 
+    public $description = 'Deletes all users marked for deletion.';
+
     public function handle()
     {
         $this->info('Deleting users marked for deletion...');

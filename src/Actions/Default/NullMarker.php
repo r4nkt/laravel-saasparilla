@@ -9,7 +9,7 @@ class NullMarker implements MarksResource
 {
     use HasParams;
 
-    public function mark($resource): void
+    public function mark(mixed $resource): void
     {
         return;
     }

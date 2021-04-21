@@ -9,7 +9,7 @@ class MarkUserForDeletion implements MarksResource
 {
     use HasParams;
 
-    public function mark($resource): void
+    public function mark(mixed $resource): void
     {
         $resource->deleting_soon_mail_sent_at = now();
         $resource->automatically_delete_at = now()->addDays($this->param('grace', 30));

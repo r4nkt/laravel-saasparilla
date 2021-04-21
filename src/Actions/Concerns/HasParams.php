@@ -9,7 +9,7 @@ trait HasParams
 {
     protected array $params;
 
-    public function setParams(array $params = [])
+    public function setParams(array $params = []): mixed
     {
         $this->params = $params;
 
