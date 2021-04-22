@@ -15,7 +15,7 @@ class MarkUnverifiedUsersForDeletion extends Command
     {
         $this->info('Finding unverified users and marking them for deletion...');
 
-        $count = Saasparilla::marksUnverifiedUsersForDeletion();
+        $count = Saasparilla::markUnverifiedUsersForDeletion();
 
         $this->comment("Found {$count} unverified users and marked them for deletion.");
 

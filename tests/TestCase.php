@@ -3,6 +3,7 @@
 namespace R4nkt\Saasparilla\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Laravel\Jetstream\JetstreamServiceProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use R4nkt\Saasparilla\SaasparillaServiceProvider;
 
@@ -21,6 +22,7 @@ class TestCase extends Orchestra
     {
         return [
             SaasparillaServiceProvider::class,
+            JetstreamServiceProvider::class,
         ];
     }
 
@@ -37,5 +39,8 @@ class TestCase extends Orchestra
         (new \CreateUsersTable())->up();
         include_once __DIR__.'/../database/migrations/add_deletion_marker_columns_to_users_table.php.stub';
         (new \AddDeletionMarkerColumnsToUsersTable())->up();
+
+        \Laravel\Jetstream\Jetstream::deleteUsersUsing(\R4nkt\Saasparilla\Tests\TestClasses\Actions\Jetstream\DeleteUser::class);
+        \Laravel\Jetstream\Jetstream::deleteTeamsUsing(\R4nkt\Saasparilla\Tests\TestClasses\Actions\Jetstream\DeleteTeam::class);
     }
 }
