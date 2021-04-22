@@ -3,7 +3,6 @@
 namespace R4nkt\Saasparilla;
 
 use R4nkt\Saasparilla\Commands\DeleteUsersMarkedForDeletion;
-use R4nkt\Saasparilla\Commands\MarkUnverifiedUsersForDeletion;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -21,10 +20,7 @@ class SaasparillaServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasViews()
             ->hasMigrations(['add_deletion_marker_columns_to_users_table'])
-            ->hasCommands([
-                DeleteUsersMarkedForDeletion::class,
-                MarkUnverifiedUsersForDeletion::class,
-            ]);
+            ->hasCommand(DeleteUsersMarkedForDeletion::class);
     }
 
     public function registeringPackage()
