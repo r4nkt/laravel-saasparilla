@@ -2,6 +2,7 @@
 
 namespace R4nkt\Saasparilla\Models\Concerns;
 
+use Carbon\Carbon;
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use R4nkt\Saasparilla\Features;
@@ -22,14 +23,14 @@ trait CanBeMarkedForDeletion
         }
     }
 
-    /**
-     * Initialize the trait
-     *
-     * @return void
-     */
-    protected function initializeCanBeMarkedForDeletion(): void
+    public function getAutomaticallyDeleteAtAttribute(?string $value): ?Carbon
     {
-        $this->mergeCasts(['automatically_delete_at' => 'datetime']);
+        return $value ? $this->asDateTime($value) : $value;
+    }
+
+    public function setAutomaticallyDeleteAtAttribute(?Carbon $value): void
+    {
+        $this->attributes['automatically_delete_at'] = $this->fromDateTime($value);
     }
 
     public function getMarkedForDeletionAttribute(): bool
