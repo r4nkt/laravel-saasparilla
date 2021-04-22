@@ -1,6 +1,6 @@
 {
     "name": "r4nkt/laravel-saasparilla",
-    "description": "todo",
+    "description": "An opinionated collection of functionality to make Laravel SaaS creators' lives a little bit easier.",
     "keywords": [
         "r4nkt",
         "laravel",
@@ -18,8 +18,9 @@
     ],
     "require": {
         "php": "^8.0",
-        "spatie/laravel-package-tools": "^1.4.3",
-        "illuminate/contracts": "^8.0"
+        "illuminate/support": "^8.0",
+        "laravel/jetstream": "^2.3",
+        "spatie/laravel-package-tools": "^1.4.3"
     },
     "require-dev": {
         "brianium/paratest": "^6.2",
@@ -31,13 +32,13 @@
     },
     "autoload": {
         "psr-4": {
-            "R4nkt\\Saasparilla\\": "src",
-            "R4nkt\\Saasparilla\\Database\\Factories\\": "database/factories"
+            "R4nkt\\Saasparilla\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "R4nkt\\Saasparilla\\Tests\\": "tests"
+            "R4nkt\\Saasparilla\\Tests\\": "tests",
+            "R4nkt\\Saasparilla\\Database\\Factories\\": "database/factories"
         }
     },
     "scripts": {
