@@ -14,6 +14,6 @@ class DeleteUser implements DeletesResource
     {
         app(DeletesUsers::class)->delete($resource);
 
-        return ! $resource->exists();
+        return ! $resource->exists;
     }
 }
