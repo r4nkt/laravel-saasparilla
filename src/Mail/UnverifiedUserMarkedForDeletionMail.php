@@ -36,7 +36,7 @@ class UnverifiedUserMarkedForDeletionMail extends Mailable
 
         return $this->markdown('saasparilla::emails.user-unverified-notification', [
                 'verifyUrl' => $verificationUrl,
-                'automaticallyDeleteAt' => $this->user->automatically_delete_at->toDateTime(),
+                'automaticallyDeleteAt' => $this->user->automatically_delete_at->toDateTimeString(),
             ])
             ->subject(__('Inactivity Notification'));
     }

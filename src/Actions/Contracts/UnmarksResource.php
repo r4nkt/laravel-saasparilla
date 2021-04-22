@@ -2,7 +2,7 @@
 
 namespace R4nkt\Saasparilla\Actions\Contracts;
 
-interface UnmarksResourceMarkedForDeletion
+interface UnmarksResource
 {
     public function setParams(array $params = []): mixed;
 

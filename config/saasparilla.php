@@ -3,9 +3,10 @@
 use App\Models\User;
 use R4nkt\Saasparilla\Actions\Default\DeleteUser;
 use R4nkt\Saasparilla\Actions\Default\DeletingUnverifiedUserSoonNotifier;
-use R4nkt\Saasparilla\Actions\Default\GetUsersMarkedForDeletion;
 use R4nkt\Saasparilla\Actions\Default\GetUnverifiedUsers;
+use R4nkt\Saasparilla\Actions\Default\GetUsersMarkedForDeletion;
 use R4nkt\Saasparilla\Actions\Default\MarkUserForDeletion;
+use R4nkt\Saasparilla\Actions\Default\UnmarkUserMarkedForDeletion;
 use R4nkt\Saasparilla\Actions\DeleteUsersMarkedForDeletion;
 use R4nkt\Saasparilla\Actions\MarkUsersForDeletion;
 use R4nkt\Saasparilla\Features;
@@ -43,6 +44,7 @@ return [
             'params' => [
                 'getter' => 'unverified-users',
                 'marker' => 'user-for-deletion',
+                'unmarker' => 'user-for-deletion',
                 'notifier' => 'deleting-unverified-user-soon',
             ],
         ]),
@@ -103,6 +105,12 @@ return [
                 'mailable' => UnverifiedUserMarkedForDeletionMail::class,
                 'email_attribute' => 'email',
             ],
+        ],
+    ],
+
+    'unmarkers' => [
+        'user-for-deletion' => [
+            'class' => UnmarkUserMarkedForDeletion::class,
         ],
     ],
 

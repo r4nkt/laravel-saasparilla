@@ -23,4 +23,9 @@ trait UsesSaasparillaConfig
     {
         return config("saasparilla.notifiers.{$name}");
     }
+
+    public static function unmarker(string $name): array
+    {
+        return config("saasparilla.unmarkers.{$name}");
+    }
 }

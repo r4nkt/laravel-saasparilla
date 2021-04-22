@@ -30,4 +30,9 @@ class InvalidConfiguration extends Exception
     {
         throw new self("Required parameter with key, {$key}, was not found.");
     }
+
+    public static function missingUnmarker(string $name)
+    {
+        throw new self("Unmarker with name, {$name}, was not found.");
+    }
 }

@@ -3,9 +3,9 @@
 namespace R4nkt\Saasparilla\Actions\Default;
 
 use R4nkt\Saasparilla\Actions\Concerns\HasParams;
-use R4nkt\Saasparilla\Actions\Contracts\UnmarksResourceMarkedForDeletion;
+use R4nkt\Saasparilla\Actions\Contracts\UnmarksResource;
 
-class UnmarkUserMarkedForDeletion implements UnmarksResourceMarkedForDeletion
+class UnmarkUserMarkedForDeletion implements UnmarksResource
 {
     use HasParams;
 
