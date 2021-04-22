@@ -4,7 +4,6 @@ namespace R4nkt\Saasparilla\Tests\Actions\Jetstream;
 
 use Carbon\Carbon;
 use Mockery\MockInterface;
-use R4nkt\Saasparilla\Actions\Contracts\DeletesUser;
 use R4nkt\Saasparilla\Actions\Jetstream\DeleteUser;
 use R4nkt\Saasparilla\DeleterFactory;
 use R4nkt\Saasparilla\Tests\TestCase;
