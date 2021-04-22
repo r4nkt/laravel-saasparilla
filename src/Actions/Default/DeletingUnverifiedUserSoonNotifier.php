@@ -5,7 +5,6 @@ namespace R4nkt\Saasparilla\Actions\Default;
 use Illuminate\Support\Facades\Mail;
 use R4nkt\Saasparilla\Actions\Concerns\HasParams;
 use R4nkt\Saasparilla\Actions\Contracts\NotifiesUser;
-use R4nkt\Saasparilla\Exceptions\InvalidConfiguration;
 
 class DeletingUnverifiedUserSoonNotifier implements NotifiesUser
 {
@@ -13,11 +12,9 @@ class DeletingUnverifiedUserSoonNotifier implements NotifiesUser
 
     public function notify(mixed $user): void
     {
-        $emailAttribute = $this->param('email_attribute', 'email');
+        $emailAttribute = $this->requiredParam('email_attribute');
 
-        if (! $mailable = $this->param('mailable')) {
-            InvalidConfiguration::missingRequiredParam('mailable');
-        }
+        $mailable = $this->requiredParam('mailable');
 
         Mail::to($user->{$emailAttribute})->queue(new $mailable($user));
     }
