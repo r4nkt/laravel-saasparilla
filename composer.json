@@ -18,8 +18,8 @@
     ],
     "require": {
         "php": "^8.0",
-        "laravel/jetstream": "^2.3",
         "illuminate/support": "^8.0",
+        "laravel/jetstream": "^2.3",
         "spatie/laravel-package-tools": "^1.4.3"
     },
     "require-dev": {
@@ -32,13 +32,13 @@
     },
     "autoload": {
         "psr-4": {
-            "R4nkt\\Saasparilla\\": "src",
-            "R4nkt\\Saasparilla\\Database\\Factories\\": "database/factories"
+            "R4nkt\\Saasparilla\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "R4nkt\\Saasparilla\\Tests\\": "tests"
+            "R4nkt\\Saasparilla\\Tests\\": "tests",
+            "R4nkt\\Saasparilla\\Database\\Factories\\": "database/factories"
         }
     },
     "scripts": {
