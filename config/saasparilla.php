@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Foundation\Auth\User;
+use App\Models\User;
 use R4nkt\Saasparilla\Actions\Default\DeleteUser;
 use R4nkt\Saasparilla\Actions\Default\DeletingUnverifiedUserSoonNotifier;
 use R4nkt\Saasparilla\Actions\Default\GetUsersMarkedForDeletion;
