@@ -2,7 +2,6 @@
 
 namespace R4nkt\Saasparilla\Actions\Default;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Enumerable;
 use R4nkt\Saasparilla\Actions\Concerns\HasParams;
 use R4nkt\Saasparilla\Actions\Contracts\GetsResources;
@@ -13,8 +12,8 @@ class GetUnverifiedUsers implements GetsResources
 
     public function get(): Enumerable
     {
-        $model = $this->param('model', User::class);
-        $threshold = $this->param('threshold', 14);
+        $model = $this->requiredParam('model');
+        $threshold = $this->requiredParam('threshold');
 
         return $model::lazyById()
             ->whereNull('email_verified_at')

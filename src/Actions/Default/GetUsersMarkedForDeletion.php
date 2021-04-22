@@ -2,7 +2,6 @@
 
 namespace R4nkt\Saasparilla\Actions\Default;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Enumerable;
 use R4nkt\Saasparilla\Actions\Concerns\HasParams;
 use R4nkt\Saasparilla\Actions\Contracts\GetsResources;
@@ -11,11 +10,9 @@ class GetUsersMarkedForDeletion implements GetsResources
 {
     use HasParams;
 
-    public function get(array $params = []): Enumerable
+    public function get(): Enumerable
     {
-        $this->setParams($params);
-
-        $model = $this->param('model', User::class);
+        $model = $this->requiredParam('model');
 
         return $model::lazyById()
             ->whereNull('email_verified_at') /** @todo Remove once testing demonstrates this "safeguard" isn't necessary. */

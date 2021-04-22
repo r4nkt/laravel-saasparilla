@@ -18,7 +18,7 @@ class DeleteUsersMarkedForDeletionTest extends TestCase
     {
         parent::setUp();
 
-        config(['saasparilla.inactive_contexts.users.model' => User::class]);
+        config(['saasparilla.getters.users-marked-for-deletion.params.model' => User::class]);
 
         $this->travelTo(Carbon::create('2020-01-01 00:00:00'));
 
