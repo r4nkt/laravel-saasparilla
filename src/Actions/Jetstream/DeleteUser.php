@@ -10,7 +10,7 @@ class DeleteUser implements ExecutesResourceTask
 {
     use HasParams;
 
-    public function delete(mixed $resource): bool
+    public function execute(mixed $resource): bool
     {
         app(DeletesUsers::class)->delete($resource);
 
