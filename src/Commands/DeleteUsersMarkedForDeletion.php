@@ -7,17 +7,17 @@ use R4nkt\Saasparilla\Support\Facades\Saasparilla;
 
 class DeleteUsersMarkedForDeletion extends Command
 {
-    protected $signature = 'saasparilla:delete-users-marked-for-deletion';
+    protected $signature = 'saasparilla:delete-users-ready-for-deletion';
 
-    public $description = 'Deletes all users marked for deletion.';
+    public $description = 'Deletes all users ready for deletion.';
 
     public function handle()
     {
-        $this->info('Deleting users marked for deletion...');
+        $this->info('Deleting users ready for deletion...');
 
-        $count = Saasparilla::deleteUsersMarkedForDeletion();
+        $count = Saasparilla::purgeCulledUsers();
 
-        $this->comment("Deleted {$count} users marked for deletion.");
+        $this->comment("Deleted {$count} users ready for deletion.");
 
         $this->info('All done!');
     }

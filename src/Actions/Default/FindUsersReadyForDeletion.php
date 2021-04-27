@@ -3,14 +3,14 @@
 namespace R4nkt\Saasparilla\Actions\Default;
 
 use Illuminate\Support\Enumerable;
-use R4nkt\Saasparilla\Actions\Concerns\HasParams;
-use R4nkt\Saasparilla\Actions\Contracts\GetsResources;
+use R4nkt\ResourceTidier\Actions\Contracts\FindsResources;
+use R4nkt\ResourceTidier\Concerns\HasParams;
 
-class GetUsersMarkedForDeletion implements GetsResources
+class FindUsersReadyForDeletion implements FindsResources
 {
     use HasParams;
 
-    public function get(): Enumerable
+    public function find(): Enumerable
     {
         $model = $this->requiredParam('model');
 

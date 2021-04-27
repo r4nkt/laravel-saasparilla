@@ -4,6 +4,7 @@ namespace R4nkt\Saasparilla\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use R4nkt\ResourceTidier\ResourceTidierServiceProvider;
 use R4nkt\Saasparilla\SaasparillaServiceProvider;
 
 class TestCase extends Orchestra
@@ -21,6 +22,7 @@ class TestCase extends Orchestra
     {
         return [
             SaasparillaServiceProvider::class,
+            ResourceTidierServiceProvider::class,
         ];
     }
 
@@ -37,5 +39,18 @@ class TestCase extends Orchestra
         (new \CreateUsersTable())->up();
         include_once __DIR__.'/../database/migrations/add_deletion_marker_columns_to_users_table.php.stub';
         (new \AddDeletionMarkerColumnsToUsersTable())->up();
+    }
+
+    /**
+     * Define routes setup.
+     *
+     * @param  \Illuminate\Routing\Router  $router
+     *
+     * @return void
+     */
+    protected function defineRoutes($router)
+    {
+        $router->get('/email/verify/{id}/{hash}', function () { return 'dummy'; })
+            ->name('verification.verify');
     }
 }

@@ -4,21 +4,21 @@ namespace R4nkt\Saasparilla\Tests\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use R4nkt\ResourceTidier\Concerns\UsesResourceTidierConfig;
+use R4nkt\ResourceTidier\Support\Factories\MarkerFactory;
 use R4nkt\Saasparilla\Commands\DeleteUsersMarkedForDeletion;
-use R4nkt\Saasparilla\Concerns\UsesSaasparillaConfig;
-use R4nkt\Saasparilla\MarkerFactory;
 use R4nkt\Saasparilla\Tests\TestCase;
 use R4nkt\Saasparilla\Tests\TestClasses\User;
 
 class DeleteUsersMarkedForDeletionTest extends TestCase
 {
-    use UsesSaasparillaConfig;
+    use UsesResourceTidierConfig;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        config(['saasparilla.getters.users-marked-for-deletion.params.model' => User::class]);
+        config(['resource-tidier.finders.users-ready-for-deletion.params.model' => User::class]);
 
         $this->travelTo(Carbon::create('2020-01-01 00:00:00'));
 

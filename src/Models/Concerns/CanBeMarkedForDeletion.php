@@ -3,24 +3,17 @@
 namespace R4nkt\Saasparilla\Models\Concerns;
 
 use Carbon\Carbon;
-use Illuminate\Auth\Events\Verified;
-use Illuminate\Support\Facades\Event;
-use R4nkt\Saasparilla\Features;
-use R4nkt\Saasparilla\UnmarkerFactory;
 
 trait CanBeMarkedForDeletion
 {
-    protected static function bootCanBeMarkedForDeletion()
+    public function getDeletingSoonMailSentAtAttribute(?string $value): ?Carbon
     {
-        if (Features::hasMarksUnverifiedUsersForDeletionFeature()) {
-            Event::listen(function (Verified $event) {
-                $options = Features::options(Features::marksUnverifiedUsersForDeletion());
+        return $value ? $this->asDateTime($value) : $value;
+    }
 
-                $unmarker = UnmarkerFactory::make($options['params']['unmarker']);
-
-                $unmarker->unmark($event->user);
-            });
-        }
+    public function setDeletingSoonMailSentAtAttribute(?Carbon $value): void
+    {
+        $this->attributes['deleting_soon_mail_sent_at'] = $this->fromDateTime($value);
     }
 
     public function getAutomaticallyDeleteAtAttribute(?string $value): ?Carbon

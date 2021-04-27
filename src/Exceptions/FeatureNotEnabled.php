@@ -11,13 +11,8 @@ class FeatureNotEnabled extends Exception
         throw new static("The feature, {$feature}, has not been enabled.");
     }
 
-    public static function marksUnverifiedUsersForDeletion()
+    public static function cleansUpUnverifiedUsers()
     {
-        self::featureNotEnabled('MarksUnverifiedUsersForDeletion');
-    }
-
-    public static function deletesUsersMarkedForDeletion()
-    {
-        self::featureNotEnabled('DeletesUsersMarkedForDeletion');
+        self::featureNotEnabled('CleansUpUnverifiedUsers');
     }
 }

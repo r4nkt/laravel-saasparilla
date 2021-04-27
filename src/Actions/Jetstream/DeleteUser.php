@@ -3,10 +3,10 @@
 namespace R4nkt\Saasparilla\Actions\Jetstream;
 
 use Laravel\Jetstream\Contracts\DeletesUsers;
-use R4nkt\Saasparilla\Actions\Concerns\HasParams;
-use R4nkt\Saasparilla\Actions\Contracts\DeletesResource;
+use R4nkt\ResourceTidier\Actions\Contracts\ExecutesResourceTask;
+use R4nkt\ResourceTidier\Concerns\HasParams;
 
-class DeleteUser implements DeletesResource
+class DeleteUser implements ExecutesResourceTask
 {
     use HasParams;
 

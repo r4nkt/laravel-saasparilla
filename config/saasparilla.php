@@ -1,88 +1,101 @@
 <?php
 
 use App\Models\User;
+use R4nkt\ResourceTidier\Actions\CullResources;
+use R4nkt\ResourceTidier\Actions\HandleResources;
 use R4nkt\Saasparilla\Actions\Default\DeleteUser;
-use R4nkt\Saasparilla\Actions\Default\DeletingUnverifiedUserSoonNotifier;
-use R4nkt\Saasparilla\Actions\Default\GetUnverifiedUsers;
-use R4nkt\Saasparilla\Actions\Default\GetUsersMarkedForDeletion;
+use R4nkt\Saasparilla\Actions\Default\CulledUnverifiedUserNotifier;
+use R4nkt\Saasparilla\Actions\Default\FindUnverifiedUsers;
+use R4nkt\Saasparilla\Actions\Default\FindUsersReadyForDeletion;
 use R4nkt\Saasparilla\Actions\Default\MarkUserForDeletion;
 use R4nkt\Saasparilla\Actions\Default\UnmarkUserMarkedForDeletion;
-use R4nkt\Saasparilla\Actions\DeleteUsersMarkedForDeletion;
-use R4nkt\Saasparilla\Actions\MarkUsersForDeletion;
 use R4nkt\Saasparilla\Features;
-use R4nkt\Saasparilla\Mail\UnverifiedUserMarkedForDeletionMail;
+use R4nkt\Saasparilla\Mail\CulledUnverifiedUserMail;
 
 return [
 
     /**
      * Features (not yet complete):
-     *  - unverified users (default/jetstream)
-     *     - marking/notifying
+     *  - cleans up unverified users (default/jetstream)
+     *     - marking/notifying/unmarking
      *     - deleting
      *  - inactive users, aka unsubscribed/no-longer-on-trial users (default???/jetstream???)
-     *     - marking/notifying
+     *     - marking/notifying/unmarking
      *     - deleting
      *  - inactive teams, aka unsubscribed/no-longer-on-trial teams (default???/jetstream???)
-     *     - marking/notifying
+     *     - marking/notifying/unmarking
      *     - deleting
      *  - welcoming verified users
      */
     'features' => [
 
         /**
-         * Finds unverified users and marks them for deletion.
-         *
-         * Required:
-         *  - class
-         *  - params:
-         *     - getter
-         *     - marker
-         *     - notifier
+         * Cleans up unverified users:
+         *  - finds users, marks them for deletion, and notifies them
+         *  - unmarks users who verify email before grace period expires
+         *  - deletes if still not verified after grace period expires
          */
-        Features::marksUnverifiedUsersForDeletion([
-            'class' => MarkUsersForDeletion::class,
-            'params' => [
-                'getter' => 'unverified-users',
-                'marker' => 'user-for-deletion',
-                'unmarker' => 'user-for-deletion',
-                'notifier' => 'deleting-unverified-user-soon',
-            ],
+        Features::cleansUpUnverifiedUsers([
+            'tidier' => 'unverified-users',
         ]),
 
-        /**
-         * Deletes users that have been marked for deletion.
-         *
-         * Required:
-         *  - class
-         *  - params:
-         *     - getter
-         *     - deleter
-         */
-        Features::deletesUsersMarkedForDeletion([
-            'class' => DeleteUsersMarkedForDeletion::class,
-            'params' => [
-                'getter' => 'users-marked-for-deletion',
-                'deleter' => 'users',
-            ],
-        ]),
     ],
 
-    'deleters' => [
-        'users' => [
-            'class' => DeleteUser::class,
+    'tidiers' => [
+        /**
+         * Culls unverified users and purges them after grace period expires.
+         */
+        'unverified-users' => [
+            'culler' => 'unverified-users',
+            'handler' => 'purge-culled-users',
         ],
     ],
 
-    'getters' => [
+    'cullers' => [
+        /**
+         * Finds unverified users, marks them, and notifies them. Unmarks them
+         * if/when they verify their email.
+         */
         'unverified-users' => [
-            'class' => GetUnverifiedUsers::class,
+            'class' => CullResources::class,
+            'params' => [
+                'finder' => 'unverified-users',
+                'marker' => 'user-for-deletion',
+                'unmarker' => 'user-for-deletion',
+                'notifier' => 'culled-unverified-user',
+            ],
+        ],
+    ],
+
+    'handlers' => [
+        /**
+         * Finds culled users and deletes them.
+         */
+        'purge-culled-users' => [
+            'class' => HandleResources::class,
+            'params' => [
+                'finder' => 'users-ready-for-deletion',
+                'task' => 'delete-user',
+            ],
+        ],
+    ],
+
+    'finders' => [
+        /**
+         * Finds users that have not verified their email.
+         */
+        'unverified-users' => [
+            'class' => FindUnverifiedUsers::class,
             'params' => [
                 'model' => User::class,
                 'threshold' => 14,
             ],
         ],
-        'users-marked-for-deletion' => [
-            'class' => GetUsersMarkedForDeletion::class,
+        /**
+         * Finds users that are marked for deletion.
+         */
+        'users-ready-for-deletion' => [
+            'class' => FindUsersReadyForDeletion::class,
             'params' => [
                 'model' => User::class,
             ],
@@ -90,6 +103,10 @@ return [
     ],
 
     'markers' => [
+        /**
+         * Marks users for deletion, which will take place once the grace
+         * period has expired.
+         */
         'user-for-deletion' => [
             'class' => MarkUserForDeletion::class,
             'params' => [
@@ -99,16 +116,34 @@ return [
     ],
 
     'notifiers' => [
-        'deleting-unverified-user-soon' => [
-            'class' => DeletingUnverifiedUserSoonNotifier::class,
+        /**
+         * Notifies unverified users that their accounts will be deleted once
+         * the grace period has expired.
+         */
+        'culled-unverified-user' => [
+            'class' => CulledUnverifiedUserNotifier::class,
             'params' => [
-                'mailable' => UnverifiedUserMarkedForDeletionMail::class,
+                'mailable' => CulledUnverifiedUserMail::class,
                 'email_attribute' => 'email',
             ],
         ],
     ],
 
+    'tasks' => [
+        /**
+         * Deletes the given user.
+         */
+        'delete-user' => [
+            'class' => DeleteUser::class,
+        ],
+    ],
+
     'unmarkers' => [
+        /**
+         * Unmarks a user for deletion, effectively reversing the related
+         * marker. Unless it's marked for deletion in some other context, it
+         * will no longer be deleted.
+         */
         'user-for-deletion' => [
             'class' => UnmarkUserMarkedForDeletion::class,
         ],

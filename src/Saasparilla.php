@@ -3,37 +3,33 @@
 namespace R4nkt\Saasparilla;
 
 use Illuminate\Support\Arr;
+use R4nkt\ResourceTidier\Support\Facades\ResourceTidier;
 use R4nkt\Saasparilla\Exceptions\FeatureNotEnabled;
 
 class Saasparilla
 {
-    public function markUnverifiedUsersForDeletion(): ?int
+    public function unverifiedUserTidier()
     {
-        if (! Features::hasMarksUnverifiedUsersForDeletionFeature()) {
-            FeatureNotEnabled::marksUnverifiedUsersForDeletion();
-        }
+        $options = Features::options(Features::cleansUpUnverifiedUsers());
 
-        return $this->buildAction(Features::marksUnverifiedUsersForDeletion());
+        return ResourceTidier::tidier(Arr::get($options, 'tidier'));
     }
 
-    public function deleteUsersMarkedForDeletion(): ?int
+    public function cullUnverifiedUsers(): ?int
     {
-        if (! Features::hasDeletesUsersMarkedForDeletionFeature()) {
-            FeatureNotEnabled::deletesUsersMarkedForDeletion();
+        if (! Features::hasCleansUpUnverifiedUsersFeature()) {
+            FeatureNotEnabled::cleansUpUnverifiedUsers();
         }
 
-        return $this->buildAction(Features::deletesUsersMarkedForDeletion());
+        return $this->unverifiedUserTidier()->cull();
     }
 
-    protected function buildAction(string $feature): mixed
+    public function purgeCulledUsers(): ?int
     {
-        $options = Features::options($feature);
+        if (! Features::hasCleansUpUnverifiedUsersFeature()) {
+            FeatureNotEnabled::cleansUpUnverifiedUsers();
+        }
 
-        $class = Arr::get($options, 'class');
-        $params = Arr::get($options, 'params', []);
-
-        return (new $class())
-            ->setParams($params)
-            ->execute();
+        return $this->unverifiedUserTidier()->handle();
     }
 }
