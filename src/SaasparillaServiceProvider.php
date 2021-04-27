@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Event;
 use R4nkt\ResourceTidier\Support\Factories\TidierFactory;
 use R4nkt\Saasparilla\Commands\DeleteUsersMarkedForDeletion;
 use R4nkt\Saasparilla\Commands\MarkUnverifiedUsersForDeletion;
-use R4nkt\Saasparilla\Features;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 

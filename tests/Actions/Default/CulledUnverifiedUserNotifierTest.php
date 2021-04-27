@@ -32,6 +32,5 @@ class CulledUnverifiedUserNotifierTest extends TestCase
         Mail::assertQueued(CulledUnverifiedUserMail::class, function ($mail) use ($user) {
             return $mail->hasTo($user->email);
         });
-
     }
 }
