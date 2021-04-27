@@ -50,7 +50,9 @@ class TestCase extends Orchestra
      */
     protected function defineRoutes($router)
     {
-        $router->get('/email/verify/{id}/{hash}', function () { return 'dummy'; })
+        $router->get('/email/verify/{id}/{hash}', function () {
+            return 'dummy';
+        })
             ->name('verification.verify');
     }
 }
