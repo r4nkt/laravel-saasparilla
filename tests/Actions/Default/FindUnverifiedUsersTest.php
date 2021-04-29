@@ -4,8 +4,6 @@ namespace R4nkt\Saasparilla\Tests\Actions\Default;
 
 use Carbon\Carbon;
 use R4nkt\ResourceTidier\Actions\Contracts\FindsResources;
-use R4nkt\ResourceTidier\Support\Factories\FinderFactory;
-use R4nkt\ResourceTidier\Support\Factories\MarkerFactory;
 use R4nkt\Saasparilla\Tests\TestCase;
 use R4nkt\Saasparilla\Tests\TestClasses\User;
 
@@ -23,7 +21,7 @@ class FindUnverifiedUsersTest extends TestCase
         config(['resource-tidier.finders.unverified-users.params.model' => User::class]);
         config(['resource-tidier.finders.unverified-users.params.threshold' => $this->threshold]);
 
-        $this->finder = FinderFactory::make('unverified-users');
+        $this->finder = $this->tidier->culler()->finder();
     }
 
     /** @test */
@@ -69,8 +67,7 @@ class FindUnverifiedUsersTest extends TestCase
         $this->travel($this->threshold)->days();
         $this->travel(1)->seconds();
 
-        $marker = MarkerFactory::make('user-for-deletion');
-        $marker->mark($newUser);
+        $this->tidier->culler()->marker()->mark($newUser);
 
         $this->assertCount(0, $this->finder->find());
     }

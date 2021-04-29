@@ -4,9 +4,6 @@ namespace R4nkt\Saasparilla\Tests\Actions\Default;
 
 use Carbon\Carbon;
 use R4nkt\ResourceTidier\Actions\Contracts\FindsResources;
-use R4nkt\ResourceTidier\Support\Factories\FinderFactory;
-use R4nkt\ResourceTidier\Support\Factories\MarkerFactory;
-use R4nkt\ResourceTidier\Support\Factories\UnmarkerFactory;
 use R4nkt\Saasparilla\Tests\TestCase;
 use R4nkt\Saasparilla\Tests\TestClasses\User;
 
@@ -24,7 +21,7 @@ class FindUsersReadyForDeletionTest extends TestCase
         config(['resource-tidier.finders.users-ready-for-deletion.params.model' => User::class]);
         config(['resource-tidier.markers.user-for-deletion.params.grace' => $this->grace]);
 
-        $this->finder = FinderFactory::make('users-ready-for-deletion');
+        $this->finder = $this->tidier->handler()->finder();
     }
 
     /** @test */
@@ -69,8 +66,7 @@ class FindUsersReadyForDeletionTest extends TestCase
     {
         $newUser = User::factory()->unverified()->create();
 
-        $marker = MarkerFactory::make('user-for-deletion');
-        $marker->mark($newUser);
+        $this->tidier->culler()->marker()->mark($newUser);
 
         $this->travel($this->grace)->days();
 
@@ -82,8 +78,7 @@ class FindUsersReadyForDeletionTest extends TestCase
     {
         $newUser = User::factory()->unverified()->create();
 
-        $marker = MarkerFactory::make('user-for-deletion');
-        $marker->mark($newUser);
+        $this->tidier->culler()->marker()->mark($newUser);
 
         $this->travel($this->grace)->days();
         $this->travel(1)->seconds();
@@ -96,13 +91,11 @@ class FindUsersReadyForDeletionTest extends TestCase
     {
         $newUser = User::factory()->unverified()->create();
 
-        $marker = MarkerFactory::make('user-for-deletion');
-        $marker->mark($newUser);
+        $this->tidier->culler()->marker()->mark($newUser);
 
         $this->assertCount(0, $this->finder->find());
 
-        $unmarker = UnmarkerFactory::make('user-for-deletion');
-        $unmarker->unmark($newUser);
+        $this->tidier->unmarker()->unmark($newUser);
 
         $this->assertCount(0, $this->finder->find());
 
@@ -117,8 +110,7 @@ class FindUsersReadyForDeletionTest extends TestCase
     {
         $newUser = User::factory()->unverified()->create();
 
-        $marker = MarkerFactory::make('user-for-deletion');
-        $marker->mark($newUser);
+        $this->tidier->culler()->marker()->mark($newUser);
 
         $this->assertCount(0, $this->finder->find());
 
@@ -128,8 +120,7 @@ class FindUsersReadyForDeletionTest extends TestCase
         $this->assertCount(1, $this->finder->find());
 
         // If no purging takes place before unmarking, then all's good
-        $unmarker = UnmarkerFactory::make('user-for-deletion');
-        $unmarker->unmark($newUser);
+        $this->tidier->unmarker()->unmark($newUser);
 
         $this->assertCount(0, $this->finder->find());
     }

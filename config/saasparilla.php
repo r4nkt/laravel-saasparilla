@@ -47,6 +47,7 @@ return [
          */
         'unverified-users' => [
             'culler' => 'unverified-users',
+            'unmarker' => 'user-for-deletion',
             'handler' => 'purge-culled-users',
         ],
     ],
@@ -61,7 +62,6 @@ return [
             'params' => [
                 'finder' => 'unverified-users',
                 'marker' => 'user-for-deletion',
-                'unmarker' => 'user-for-deletion',
                 'notifier' => 'culled-unverified-user',
             ],
         ],

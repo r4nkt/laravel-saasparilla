@@ -4,11 +4,15 @@ namespace R4nkt\Saasparilla\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
+use R4nkt\ResourceTidier\Contracts\TidiesResources;
 use R4nkt\ResourceTidier\ResourceTidierServiceProvider;
+use R4nkt\ResourceTidier\Support\Facades\ResourceTidier;
 use R4nkt\Saasparilla\SaasparillaServiceProvider;
 
 class TestCase extends Orchestra
 {
+    protected TidiesResources $tidier;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -16,6 +20,8 @@ class TestCase extends Orchestra
         Factory::guessFactoryNamesUsing(
             fn (string $modelName) => 'R4nkt\\Saasparilla\\Tests\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
+
+        $this->tidier = ResourceTidier::tidier('unverified-users');
     }
 
     protected function getPackageProviders($app)

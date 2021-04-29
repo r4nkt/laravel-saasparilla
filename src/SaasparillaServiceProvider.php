@@ -4,7 +4,7 @@ namespace R4nkt\Saasparilla;
 
 use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
-use R4nkt\ResourceTidier\Support\Factories\TidierFactory;
+use R4nkt\ResourceTidier\Support\Facades\ResourceTidier;
 use R4nkt\Saasparilla\Commands\DeleteUsersMarkedForDeletion;
 use R4nkt\Saasparilla\Commands\MarkUnverifiedUsersForDeletion;
 use Spatie\LaravelPackageTools\Package;
@@ -49,9 +49,9 @@ class SaasparillaServiceProvider extends PackageServiceProvider
             Event::listen(function (Verified $event) {
                 $options = Features::options(Features::cleansUpUnverifiedUsers());
 
-                $tidier = TidierFactory::make($options['tidier']);
+                $tidier = ResourceTidier::tidier($options['tidier']);
 
-                $tidier->culler()->unmarker()->unmark($event->user);
+                $tidier->unmarker()->unmark($event->user);
             });
         }
     }
