@@ -2,7 +2,6 @@
 
 namespace R4nkt\Saasparilla\Tests\Actions\Default;
 
-use R4nkt\ResourceTidier\Actions\Contracts\ExecutesResourceTask;
 use R4nkt\Saasparilla\Tests\TestCase;
 use R4nkt\Saasparilla\Tests\TestClasses\User;
 
