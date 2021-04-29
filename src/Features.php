@@ -46,42 +46,22 @@ class Features
     }
 
     /**
-     * Determine if the feature that allows marking unverified users for deletion is enabled.
+     * Determine if the feature that cleans up unverified users is enabled.
      */
-    public static function hasMarksUnverifiedUsersForDeletionFeature(): bool
+    public static function hasCleansUpUnverifiedUsersFeature(): bool
     {
-        return static::enabled(static::marksUnverifiedUsersForDeletion());
+        return static::enabled(static::cleansUpUnverifiedUsers());
     }
 
     /**
-     * Determine if the feature that allows deleting users marked for deletion is enabled.
+     * Enable the feature that cleans up unverified users.
      */
-    public static function hasDeletesUsersMarkedForDeletionFeature(): bool
-    {
-        return static::enabled(static::deletesUsersMarkedForDeletion());
-    }
-
-    /**
-     * Enable the feature that allows marking unverified users for deletion.
-     */
-    public static function marksUnverifiedUsersForDeletion(array $options = []): string
+    public static function cleansUpUnverifiedUsers(array $options = []): string
     {
         if (! empty($options)) {
-            config(['saasparilla-options.marks-unverified-users-for-deletion' => $options]);
+            config(['saasparilla-options.cleans-unverified-users' => $options]);
         }
 
-        return 'marks-unverified-users-for-deletion';
-    }
-
-    /**
-     * Enable the feature that allows deleting users marked for deletion.
-     */
-    public static function deletesUsersMarkedForDeletion(array $options = []): string
-    {
-        if (! empty($options)) {
-            config(['saasparilla-options.deletes-users-marked-for-deletion' => $options]);
-        }
-
-        return 'deletes-users-marked-for-deletion';
+        return 'cleans-unverified-users';
     }
 }

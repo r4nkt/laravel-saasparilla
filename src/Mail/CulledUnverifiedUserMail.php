@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\URL;
 
-class UnverifiedUserMarkedForDeletionMail extends Mailable
+class CulledUnverifiedUserMail extends Mailable
 {
     use Queueable;
     use SerializesModels;
@@ -34,7 +34,7 @@ class UnverifiedUserMarkedForDeletionMail extends Mailable
     {
         $verificationUrl = $this->verificationUrl($this->user);
 
-        return $this->markdown('saasparilla::emails.user-unverified-notification', [
+        return $this->markdown('saasparilla::emails.culled-unverified-user', [
                 'verifyUrl' => $verificationUrl,
                 'automaticallyDeleteAt' => $this->user->automatically_delete_at->toDateTimeString(),
             ])

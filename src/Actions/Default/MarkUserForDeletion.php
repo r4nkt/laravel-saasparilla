@@ -2,8 +2,8 @@
 
 namespace R4nkt\Saasparilla\Actions\Default;
 
-use R4nkt\Saasparilla\Actions\Concerns\HasParams;
-use R4nkt\Saasparilla\Actions\Contracts\MarksResource;
+use R4nkt\ResourceTidier\Actions\Contracts\MarksResource;
+use R4nkt\ResourceTidier\Concerns\HasParams;
 
 class MarkUserForDeletion implements MarksResource
 {

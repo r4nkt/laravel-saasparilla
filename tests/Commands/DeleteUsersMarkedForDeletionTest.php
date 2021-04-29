@@ -4,21 +4,20 @@ namespace R4nkt\Saasparilla\Tests\Commands;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use R4nkt\ResourceTidier\Concerns\UsesResourceTidierConfig;
 use R4nkt\Saasparilla\Commands\DeleteUsersMarkedForDeletion;
-use R4nkt\Saasparilla\Concerns\UsesSaasparillaConfig;
-use R4nkt\Saasparilla\MarkerFactory;
 use R4nkt\Saasparilla\Tests\TestCase;
-use R4nkt\Saasparilla\Tests\TestClasses\User;
+use R4nkt\Saasparilla\Tests\TestClasses\Models\User;
 
 class DeleteUsersMarkedForDeletionTest extends TestCase
 {
-    use UsesSaasparillaConfig;
+    use UsesResourceTidierConfig;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        config(['saasparilla.getters.users-marked-for-deletion.params.model' => User::class]);
+        config(['resource-tidier.finders.users-ready-for-deletion.params.model' => User::class]);
 
         $this->travelTo(Carbon::create('2020-01-01 00:00:00'));
 
@@ -30,8 +29,7 @@ class DeleteUsersMarkedForDeletionTest extends TestCase
     {
         // Create and mark-for-deletion an unverified user
         $unverifiedUser = User::factory()->unverified()->create();
-        $marker = MarkerFactory::make('user-for-deletion');
-        $marker->mark($unverifiedUser);
+        $this->tidier->culler()->marker()->mark($unverifiedUser);
 
         // Get default configuration settings for grace
         $grace = self::marker('user-for-deletion')['params']['grace'];
