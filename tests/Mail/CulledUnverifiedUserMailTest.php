@@ -6,7 +6,7 @@ use R4nkt\ResourceTidier\Contracts\TidiesResources;
 use R4nkt\ResourceTidier\Support\Facades\ResourceTidier;
 use R4nkt\Saasparilla\Mail\CulledUnverifiedUserMail;
 use R4nkt\Saasparilla\Tests\TestCase;
-use R4nkt\Saasparilla\Tests\TestClasses\User;
+use R4nkt\Saasparilla\Tests\TestClasses\Models\User;
 
 class CulledUnverifiedUserMailTest extends TestCase
 {

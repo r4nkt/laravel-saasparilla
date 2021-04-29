@@ -3,7 +3,7 @@
 namespace R4nkt\Saasparilla\Tests\Actions\Default;
 
 use R4nkt\Saasparilla\Tests\TestCase;
-use R4nkt\Saasparilla\Tests\TestClasses\User;
+use R4nkt\Saasparilla\Tests\TestClasses\Models\User;
 
 class MarkUserForDeletionTest extends TestCase
 {

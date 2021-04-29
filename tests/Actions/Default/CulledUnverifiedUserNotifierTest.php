@@ -5,7 +5,7 @@ namespace R4nkt\Saasparilla\Tests\Actions\Default;
 use Illuminate\Support\Facades\Mail;
 use R4nkt\Saasparilla\Mail\CulledUnverifiedUserMail;
 use R4nkt\Saasparilla\Tests\TestCase;
-use R4nkt\Saasparilla\Tests\TestClasses\User;
+use R4nkt\Saasparilla\Tests\TestClasses\Models\User;
 
 class CulledUnverifiedUserNotifierTest extends TestCase
 {

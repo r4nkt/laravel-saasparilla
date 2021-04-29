@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use R4nkt\ResourceTidier\Concerns\UsesResourceTidierConfig;
 use R4nkt\Saasparilla\Commands\DeleteUsersMarkedForDeletion;
 use R4nkt\Saasparilla\Tests\TestCase;
-use R4nkt\Saasparilla\Tests\TestClasses\User;
+use R4nkt\Saasparilla\Tests\TestClasses\Models\User;
 
 class DeleteUsersMarkedForDeletionTest extends TestCase
 {
