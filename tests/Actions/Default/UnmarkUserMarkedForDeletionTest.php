@@ -18,7 +18,7 @@ class UnmarkUserMarkedForDeletionTest extends TestCase
         $this->assertNotNull($user->deleting_soon_mail_sent_at);
         $this->assertNotNull($user->automatically_delete_at);
 
-        $this->tidier->unmarker()->unmark($user);
+        $this->tidier->unmark($user);
 
         $this->assertNull($user->deleting_soon_mail_sent_at);
         $this->assertNull($user->automatically_delete_at);

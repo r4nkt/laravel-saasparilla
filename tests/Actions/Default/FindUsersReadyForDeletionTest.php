@@ -95,7 +95,7 @@ class FindUsersReadyForDeletionTest extends TestCase
 
         $this->assertCount(0, $this->finder->find());
 
-        $this->tidier->unmarker()->unmark($newUser);
+        $this->tidier->unmark($newUser);
 
         $this->assertCount(0, $this->finder->find());
 
@@ -120,7 +120,7 @@ class FindUsersReadyForDeletionTest extends TestCase
         $this->assertCount(1, $this->finder->find());
 
         // If no purging takes place before unmarking, then all's good
-        $this->tidier->unmarker()->unmark($newUser);
+        $this->tidier->unmark($newUser);
 
         $this->assertCount(0, $this->finder->find());
     }

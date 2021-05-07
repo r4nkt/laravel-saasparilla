@@ -5,19 +5,19 @@ namespace R4nkt\Saasparilla\Commands;
 use Illuminate\Console\Command;
 use R4nkt\Saasparilla\Support\Facades\Saasparilla;
 
-class MarkUnverifiedUsersForDeletion extends Command
+class CullUnverifiedUsers extends Command
 {
-    protected $signature = 'saasparilla:mark-unverified-users-for-deletion';
+    protected $signature = 'saasparilla:cull-unverified-users';
 
     public $description = 'Finds unverified users, marks them for deletion, and notifies them via mail.';
 
     public function handle()
     {
-        $this->info('Finding unverified users and marking them for deletion...');
+        $this->info('Culling unverified users...');
 
         $count = Saasparilla::cullUnverifiedUsers();
 
-        $this->comment("Found {$count} unverified users and marked them for deletion.");
+        $this->comment("Culled {$count} unverified users.");
 
         $this->info('All done!');
     }

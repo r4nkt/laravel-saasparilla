@@ -10,7 +10,7 @@ use R4nkt\Saasparilla\Support\Facades\Saasparilla;
 use R4nkt\Saasparilla\Tests\TestCase;
 use R4nkt\Saasparilla\Tests\TestClasses\Models\User;
 
-class MarkUnverifiedUsersForDeletionTest extends TestCase
+class CullUnverifiedUsersTest extends TestCase
 {
     use UsesResourceTidierConfig;
 

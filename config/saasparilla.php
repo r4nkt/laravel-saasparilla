@@ -1,10 +1,9 @@
 <?php
 
 use App\Models\User;
-use R4nkt\ResourceTidier\Actions\CullResources;
-use R4nkt\ResourceTidier\Actions\HandleResources;
-use R4nkt\Saasparilla\Actions\Default\DeleteUser;
+use Illuminate\Auth\Events\Verified;
 use R4nkt\Saasparilla\Actions\Default\CulledUnverifiedUserNotifier;
+use R4nkt\Saasparilla\Actions\Default\DeleteUser;
 use R4nkt\Saasparilla\Actions\Default\FindUnverifiedUsers;
 use R4nkt\Saasparilla\Actions\Default\FindUsersReadyForDeletion;
 use R4nkt\Saasparilla\Actions\Default\MarkUserForDeletion;
@@ -37,6 +36,7 @@ return [
          */
         Features::cleansUpUnverifiedUsers([
             'tidier' => 'unverified-users',
+            'unmark_on' => Verified::class,
         ]),
 
     ],
@@ -58,7 +58,6 @@ return [
          * if/when they verify their email.
          */
         'unverified-users' => [
-            'class' => CullResources::class,
             'params' => [
                 'finder' => 'unverified-users',
                 'marker' => 'user-for-deletion',
@@ -72,7 +71,6 @@ return [
          * Finds culled users and deletes them.
          */
         'purge-culled-users' => [
-            'class' => HandleResources::class,
             'params' => [
                 'finder' => 'users-ready-for-deletion',
                 'task' => 'delete-user',

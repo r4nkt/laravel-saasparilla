@@ -2,11 +2,10 @@
 
 namespace R4nkt\Saasparilla;
 
-use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use R4nkt\ResourceTidier\Support\Facades\ResourceTidier;
+use R4nkt\Saasparilla\Commands\CullUnverifiedUsers;
 use R4nkt\Saasparilla\Commands\DeleteUsersMarkedForDeletion;
-use R4nkt\Saasparilla\Commands\MarkUnverifiedUsersForDeletion;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -26,7 +25,7 @@ class SaasparillaServiceProvider extends PackageServiceProvider
             ->hasMigrations(['add_deletion_marker_columns_to_users_table'])
             ->hasCommands([
                 DeleteUsersMarkedForDeletion::class,
-                MarkUnverifiedUsersForDeletion::class,
+                CullUnverifiedUsers::class,
             ]);
     }
 
@@ -39,19 +38,20 @@ class SaasparillaServiceProvider extends PackageServiceProvider
 
     public function bootingPackage()
     {
-        $this->setUpUnmarkingVerifiedUser();
         $this->setUpResourceTidierConfiguration();
+        $this->setUpUnmarkingVerifiedUser();
     }
 
     protected function setUpUnmarkingVerifiedUser()
     {
         if (Features::hasCleansUpUnverifiedUsersFeature()) {
-            Event::listen(function (Verified $event) {
-                $options = Features::options(Features::cleansUpUnverifiedUsers());
+            $options = Features::options(Features::cleansUpUnverifiedUsers());
 
-                $tidier = ResourceTidier::tidier($options['tidier']);
+            $event = $options['unmark_on'];
+            $tidier = ResourceTidier::tidier($options['tidier']);
 
-                $tidier->unmarker()->unmark($event->user);
+            Event::listen($event, function ($event) use ($tidier) {
+                $tidier->unmark($event->user);
             });
         }
     }
